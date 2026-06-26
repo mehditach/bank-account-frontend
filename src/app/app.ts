@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet, RouterLink } from '@angular/router';
+import { RouterOutlet, RouterLink, Router } from '@angular/router';
+import { Auth } from './auth';
 
 @Component({
   selector: 'app-root',
@@ -9,4 +10,11 @@ import { RouterOutlet, RouterLink } from '@angular/router';
 })
 export class App {
   protected readonly title = signal('bank-account-frontend');
+
+  constructor(public authService: Auth, private router: Router) {}
+
+  logout() {
+    this.authService.logout();
+    this.router.navigateByUrl('/login');
+  }
 }

@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <a class="navbar-brand" href="#"><i class="bi bi-bank"></i> Bank Manager</a>
     <div class="collapse navbar-collapse">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav me-auto">
         <li class="nav-item">
           <a class="nav-link" routerLink="/customers">Clients</a>
         </li>
@@ -10,6 +10,11 @@
           <a class="nav-link" routerLink="/accounts">Comptes</a>
         </li>
       </ul>
+      @if (authService.isLoggedIn()) {
+        <button class="btn btn-outline-light" (click)="logout()">
+          <i class="bi bi-box-arrow-right"></i> Logout
+        </button>
+      }
     </div>
   </div>
 </nav>
