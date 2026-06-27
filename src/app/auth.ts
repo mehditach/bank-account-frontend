@@ -17,7 +17,7 @@ export class Auth {
   // signal qui dit si l'utilisateur est connecte ou pas
   isLoggedIn = signal<boolean>(this.hasToken());
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   login(username: string, password: string): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(this.apiUrl + '/login', { username, password })
@@ -42,5 +42,12 @@ export class Auth {
 
   private hasToken(): boolean {
     return !!localStorage.getItem('token');
+  }
+
+  changePassword(oldPassword: string, newPassword: string): Observable<any> {
+    return this.http.post('http://localhost:8080/auth/change-password', {
+      oldPassword,
+      newPassword
+    });
   }
 }

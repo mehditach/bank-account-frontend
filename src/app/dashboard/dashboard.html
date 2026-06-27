@@ -1,0 +1,63 @@
+<div class="container mt-4">
+  <h2 class="mb-4"><i class="bi bi-bar-chart-fill"></i> Tableau de Bord</h2>
+
+  @if (stats()) {
+    <!-- cartes de stats -->
+    <div class="row mb-4">
+      <div class="col-md-3">
+        <div class="card text-white bg-primary">
+          <div class="card-body">
+            <h6>Clients</h6>
+            <h3>{{ stats().totalCustomers }}</h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card text-white bg-success">
+          <div class="card-body">
+            <h6>Comptes</h6>
+            <h3>{{ stats().totalAccounts }}</h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card text-white bg-info">
+          <div class="card-body">
+            <h6>Operations</h6>
+            <h3>{{ stats().totalOperations }}</h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card text-white bg-dark">
+          <div class="card-body">
+            <h6>Solde Total</h6>
+            <h3>{{ stats().totalBalance | number:'1.0-0' }} DH</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- graphiques -->
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card p-3">
+          <h6 class="text-center">Repartition des comptes</h6>
+          <canvas baseChart [data]="accountsChartData" type="pie" [options]="chartOptions"></canvas>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card p-3">
+          <h6 class="text-center">Nombre d'operations</h6>
+          <canvas baseChart [data]="operationsChartData" type="bar" [options]="chartOptions"></canvas>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card p-3">
+          <h6 class="text-center">Montants Debit/Credit</h6>
+          <canvas baseChart [data]="amountsChartData" type="bar" [options]="chartOptions"></canvas>
+        </div>
+      </div>
+    </div>
+  }
+</div>

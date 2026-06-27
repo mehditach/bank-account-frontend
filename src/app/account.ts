@@ -44,4 +44,8 @@ export class Account {
     return this.http.get<any[]>('http://localhost:8080/accounts/' + accountId + '/operations');
   }
 
+  getDashboardStats(): Observable<any> {
+    return this.http.get<any>('http://localhost:8080/dashboard/stats');
+  }
+
 }
