@@ -1,0 +1,33 @@
+<div class="chat-widget">
+  @if (!isOpen()) {
+    <button class="chat-bubble" (click)="toggleChat()">
+      <i class="bi bi-chat-dots-fill"></i>
+    </button>
+  }
+
+  @if (isOpen()) {
+    <div class="chat-box">
+      <div class="chat-header">
+        <span><i class="bi bi-robot"></i> Assistant ENSET Bank</span>
+        <button class="close-btn" (click)="toggleChat()">×</button>
+      </div>
+
+      <div class="chat-messages">
+        @for (msg of messages(); track $index) {
+          <div class="message" [class.user]="msg.sender === 'user'" [class.bot]="msg.sender === 'bot'">
+            {{ msg.text }}
+          </div>
+        }
+        @if (isLoading()) {
+          <div class="message bot">...</div>
+        }
+      </div>
+
+      <div class="chat-input">
+        <input type="text" [(ngModel)]="userInput" placeholder="Écrivez votre question..."
+               (keyup.enter)="sendMessage()">
+        <button (click)="sendMessage()"><i class="bi bi-send-fill"></i></button>
+      </div>
+    </div>
+  }
+</div>
