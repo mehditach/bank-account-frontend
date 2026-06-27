@@ -1,19 +1,72 @@
 <div class="container mt-4">
   <h2 class="mb-3"><i class="bi bi-people"></i> Liste des Clients</h2>
+
+  <!-- recherche -->
+  <div class="input-group mb-3">
+    <input type="text" [(ngModel)]="searchKeyword" class="form-control" placeholder="Rechercher un client par nom...">
+    <button class="btn btn-primary" (click)="search()">
+      <i class="bi bi-search"></i> Chercher
+    </button>
+  </div>
+
+  <!-- formulaire ajout -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <h5 class="card-title"><i class="bi bi-plus-circle"></i> Ajouter un client</h5>
+      <div class="row g-2">
+        <div class="col-md-5">
+          <input type="text" [(ngModel)]="newCustomer.name" class="form-control" placeholder="Nom">
+        </div>
+        <div class="col-md-5">
+          <input type="email" [(ngModel)]="newCustomer.email" class="form-control" placeholder="Email">
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-success w-100" (click)="addCustomer()">
+            <i class="bi bi-plus-circle"></i> Ajouter
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- tableau -->
   <table class="table table-striped table-bordered table-hover">
     <thead class="table-dark">
       <tr>
         <th>ID</th>
         <th>Nom</th>
         <th>Email</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
       @for (c of customers(); track c.id) {
         <tr>
-          <td>{{ c.id }}</td>
-          <td>{{ c.name }}</td>
-          <td>{{ c.email }}</td>
+          @if (editingCustomer && editingCustomer.id === c.id) {
+            <td>{{ c.id }}</td>
+            <td><input type="text" [(ngModel)]="editingCustomer.name" class="form-control"></td>
+            <td><input type="email" [(ngModel)]="editingCustomer.email" class="form-control"></td>
+            <td>
+              <button class="btn btn-success btn-sm" (click)="saveEdit()">
+                <i class="bi bi-check-circle"></i> Sauver
+              </button>
+              <button class="btn btn-secondary btn-sm" (click)="cancelEdit()">
+                <i class="bi bi-x-circle"></i> Annuler
+              </button>
+            </td>
+          } @else {
+            <td>{{ c.id }}</td>
+            <td>{{ c.name }}</td>
+            <td>{{ c.email }}</td>
+            <td>
+              <button class="btn btn-warning btn-sm" (click)="startEdit(c)">
+                <i class="bi bi-pencil"></i> Modifier
+              </button>
+              <button class="btn btn-danger btn-sm" (click)="deleteCustomer(c.id)">
+                <i class="bi bi-trash"></i> Supprimer
+              </button>
+            </td>
+          }
         </tr>
       }
     </tbody>
